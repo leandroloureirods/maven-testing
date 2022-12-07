@@ -1,5 +1,8 @@
 package br.com.alura.maven.testing;
 
+import java.util.List;
+
+import br.com.caelum.stella.ValidationMessage;
 import br.com.caelum.stella.validation.CPFValidator;
 
 public class App {
@@ -19,12 +22,11 @@ public class App {
 
 	public static boolean valida(String cpf) {
 		CPFValidator cpfValidator = new CPFValidator();
-		try {
-			cpfValidator.assertValid(cpf);
-			return true;
-		} catch (Exception e) {
-			// e.printStackTrace();
+		List<ValidationMessage> erros = cpfValidator.invalidMessagesFor(cpf);
+		if (erros.size() > 0) {
 			return false;
+		} else {
+			return true;
 		}
 	}
 
